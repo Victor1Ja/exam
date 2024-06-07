@@ -24,7 +24,7 @@ pipeline {
         
         stage('Build and Push:STAGING') {
             when {
-                branch '/staging'
+                branch 'origin/staging'
             }
             steps {
                 sh 'echo "Deploying..."'
@@ -47,7 +47,7 @@ pipeline {
         }
         stage('Pull and Run as a service:STAGING') {
             when {
-                branch 'staging'
+                branch 'origin/staging'
             }
             steps {
                 sh 'echo "Running as a service..."'
@@ -70,7 +70,7 @@ pipeline {
         }
         stage('Build and Push:MASTER') {
             when {
-                branch 'master'
+                branch 'origin/main'
             }
             steps {
                 sh 'echo "Deploying..."'
@@ -93,7 +93,7 @@ pipeline {
         }
         stage('Pull and Run as a service:MASTER') {
             when {
-                branch 'master'
+                branch 'origin/main'
             }
             steps {
                 sh 'echo "Running as a service..."'
