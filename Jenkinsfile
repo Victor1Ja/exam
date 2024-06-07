@@ -79,7 +79,7 @@ pipeline {
         stage('Build and Push:MASTER') {
             when {
                 expression {
-                    return env.GIT_BRANCH == 'origin/master' || env.BRANCH_NAME == 'master' ||env.GIT_BRANCH == 'master'
+                    return env.GIT_BRANCH == 'origin/main' || env.BRANCH_NAME == 'main' ||env.GIT_BRANCH == 'main'
                 }
             }
             steps {
@@ -104,7 +104,7 @@ pipeline {
         stage('Pull and Run as a service:MASTER') {
             when {
                 expression {
-                    return env.GIT_BRANCH == 'origin/master' || env.BRANCH_NAME == 'master' ||env.GIT_BRANCH == 'master'
+                    return env.GIT_BRANCH == 'origin/main' || env.BRANCH_NAME == 'main' ||env.GIT_BRANCH == 'main'
                 }
             }
             steps {
