@@ -10,8 +10,13 @@ pipeline {
                     def imageName = "ttl.sh/${IMAGE_NAME}:10m"
                     def dockerBuildCommand = "docker build -t ${imageName} .";
                     def dockerRunCommand = "docker run -p 4444:4444 --name my_container ${imageName}";
+                    def container = "my_container"
+                    def stopContainerCommand = """docker stop ${container} && docker rm ${container}"""
+
+                    sh stopContainerCommand
                     sh dockerBuildCommand
                     sh dockerRunCommand
+                    sh stopContainerCommand
                 }
             }
         }
