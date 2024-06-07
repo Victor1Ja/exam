@@ -7,7 +7,7 @@ pipeline {
             steps {
                 sh 'echo "Testing..."'
                 script {
-                    def imageName = "ttl.sh/${IMAGE_NAME}:10m"
+                    def imageName = "ttl.sh/${IMAGE_NAME}:10m" 
                     def dockerBuildCommand = "docker build -t ${imageName} -f Dockerfile.test .";
                     def dockerRunCommand = "docker run -p 4444:4444 --name my_container ${imageName}";
                     def container = "my_container"
