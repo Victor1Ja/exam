@@ -5,11 +5,14 @@ pipeline {
 
         stage('Test') {
             steps {
-                def imageName = "ttl.sh/${IMAGE_NAME}:10m"
-                def dockerBuildCommand = "docker build -t ${imageName} .";
-                def dockerRunCommand = "docker run -p 4444:4444 --name my_container ${imageName}";
-                sh dockerBuildCommand
-                sh dockerRunCommand
+                sh 'echo "Testing..."'
+                script {
+                    def imageName = "ttl.sh/${IMAGE_NAME}:10m"
+                    def dockerBuildCommand = "docker build -t ${imageName} .";
+                    def dockerRunCommand = "docker run -p 4444:4444 --name my_container ${imageName}";
+                    sh dockerBuildCommand
+                    sh dockerRunCommand
+                }
             }
         }
 
