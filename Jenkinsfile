@@ -11,12 +11,15 @@ pipeline {
                     def dockerBuildCommand = "docker build -t ${imageName} -f Dockerfile.test .";
                     def dockerRunCommand = "docker run -p 4444:4444 --name my_container ${imageName}";
                     def container = "my_container"
-                    def stopContainerCommand = """docker stop ${container} && docker rm ${container}"""
+                    def stopContainerCommand = """docker stop ${container} && echo "Stop operation succeeded." || echo "Stop operation not needed."""
+                    def removeContainerCommand = """docker rm ${container} && echo "Remove operation succeeded." || echo "Remove operation not needed."""
 
                     sh stopContainerCommand
+                    sh removeContainerCommand
                     sh dockerBuildCommand
                     sh dockerRunCommand
                     sh stopContainerCommand
+                    sh removeContainerCommand
                 }
             }
         }
