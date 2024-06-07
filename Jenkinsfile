@@ -65,7 +65,7 @@ pipeline {
                         def remoteHost = "192.168.56.3 "
                         def imageName = "ttl.sh/${IMAGE_NAME}:10m"
                         def defaultPort = "4444"
-                        def container = "my_container_master"
+                        def container = "my_container_staging"
 
                         def stopContainerCommand = """docker stop ${container} && echo "Stop operation succeeded." || echo "Stop operation not needed." """
                         def removeContainerCommand = """docker rm ${container} && echo "Remove operation succeeded." || echo "Remove operation not needed." """
@@ -78,7 +78,9 @@ pipeline {
         }
         stage('Build and Push:MASTER') {
             when {
-                branch 'origin/main'
+                expression {
+                    return env.GIT_BRANCH == 'origin/master' || env.BRANCH_NAME == 'master' ||env.GIT_BRANCH == 'master'
+                }
             }
             steps {
                 sh 'echo "Deploying..."'
@@ -101,7 +103,9 @@ pipeline {
         }
         stage('Pull and Run as a service:MASTER') {
             when {
-                branch 'origin/main'
+                expression {
+                    return env.GIT_BRANCH == 'origin/master' || env.BRANCH_NAME == 'master' ||env.GIT_BRANCH == 'master'
+                }
             }
             steps {
                 sh 'echo "Running as a service..."'
