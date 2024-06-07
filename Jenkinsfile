@@ -15,7 +15,7 @@ pipeline {
                     def removeContainerCommand = """docker rm ${container} && echo "Remove operation succeeded." || echo "Remove operation not needed." """
 
                     sh stopContainerCommand
-                    sh removeContainerCommand
+                    sh removeContainerCommand   
                     sh dockerBuildCommand
                     sh dockerRunCommand
                     sh stopContainerCommand
@@ -27,7 +27,9 @@ pipeline {
         
         stage('Build and Push:STAGING') {
             when {
-                branch 'origin/staging'
+                expression {
+                    return env.GIT_BRANCH == 'origin/staging' || env.BRANCH_NAME == 'staging'
+                }
             }
             steps {
                 sh 'echo "Deploying..."'
@@ -50,7 +52,9 @@ pipeline {
         }
         stage('Pull and Run as a service:STAGING') {
             when {
-                branch 'origin/staging'
+                expression {
+                    return env.GIT_BRANCH == 'origin/staging' || env.BRANCH_NAME == 'staging'
+                }
             }
             steps {
                 sh 'echo "Running as a service..."'
