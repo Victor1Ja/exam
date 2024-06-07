@@ -115,12 +115,12 @@ pipeline {
                     script {
                         def remoteHost = "192.168.56.3 "
                         def imageName = "ttl.sh/${IMAGE_NAME}_master:10m"
-                        def defaultPort = "4443"
+                        def defaultPort = "4444"
                         def container = "my_container_master"
 
                         def stopContainerCommand = """docker stop ${container} && echo "Stop operation succeeded." || echo "Stop operation not needed." """
                         def removeContainerCommand = """docker rm ${container} && echo "Remove operation succeeded." || echo "Remove operation not needed." """
-                        def runContainerCommandDefault = "docker run -d -p 4444:${defaultPort} --name ${container} ${imageName}"
+                        def runContainerCommandDefault = "docker run -d -p 4443:${defaultPort} --name ${container} ${imageName}"
                         def sshCommand = """ssh -o StrictHostKeyChecking=no -i ${mykey} ${myuser}@${remoteHost} \"${stopContainerCommand}&& ${removeContainerCommand} && ${runContainerCommandDefault}\" """
 
                         sh(sshCommand)
