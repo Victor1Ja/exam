@@ -8,7 +8,7 @@ pipeline {
                 sh 'echo "Testing..."'
                 script {
                     def imageName = "ttl.sh/${IMAGE_NAME}:10m"
-                    def dockerBuildCommand = "docker build -t ${imageName} .";
+                    def dockerBuildCommand = "docker build -t ${imageName} -f Dockerfile.test .";
                     def dockerRunCommand = "docker run -p 4444:4444 --name my_container ${imageName}";
                     def container = "my_container"
                     def stopContainerCommand = """docker stop ${container} && docker rm ${container}"""
@@ -80,7 +80,7 @@ pipeline {
                                                    usernameVariable: 'myuser')]) {
                     script {
                         def imageName = "ttl.sh/${IMAGE_NAME}_master:10m"
-                        def dockerBuildCommand = "docker build -t ${imageName} .";
+                        def dockerBuildCommand = "docker build -t ${imageName} -f Dockerfile.prod .";
                         def dockerPullCommand = "docker push ${imageName};"
                         def ret = sh dockerBuildCommand
                         print(ret)
