@@ -26,11 +26,6 @@ pipeline {
 
         
         stage('Build and Push:STAGING') {
-            when {
-                expression {
-                    return env.GIT_BRANCH == 'origin/staging' || env.BRANCH_NAME == 'staging'
-                }
-            }
             steps {
                 sh 'echo "Deploying..."'
 
@@ -51,11 +46,6 @@ pipeline {
             }
         }
         stage('Pull and Run as a service:STAGING') {
-            when {
-                expression {
-                    return env.GIT_BRANCH == 'origin/staging' || env.BRANCH_NAME == 'staging'
-                }
-            }
             steps {
                 sh 'echo "Running as a service..."'
                 withCredentials([sshUserPrivateKey(credentialsId: 'mykey2',
