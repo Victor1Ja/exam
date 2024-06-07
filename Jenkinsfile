@@ -24,7 +24,7 @@ pipeline {
         
         stage('Build and Push:STAGING') {
             when {
-                branch 'staging'
+                branch '/staging'
             }
             steps {
                 sh 'echo "Deploying..."'
